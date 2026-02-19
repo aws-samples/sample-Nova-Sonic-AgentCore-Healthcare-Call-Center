@@ -20,16 +20,19 @@ This guide covers deployment of the Nova Sonic Healthcare Call Center using Amaz
 ```bash
 cd infrastructure
 
+# Configure escalation email in cdk.json
+# Edit infrastructure/cdk.json and replace "escalation_email" value with your email address
+
 # Create a virtual environment and install CDK dependencies
 python3 -m venv .venv
 source .venv/bin/activate        # On Windows: .venv\Scripts\activate
 pip install -r requirements.txt
 
 # Bootstrap CDK (one-time per account/region)
-cdk bootstrap
+cdk bootstrap --profile <your-aws-profile>
 
 # Deploy the stack
-cdk deploy --require-approval never
+cdk deploy --profile <your-aws-profile> --require-approval never
 ```
 
 This deploys:
@@ -45,7 +48,7 @@ After deployment, note these outputs for frontend configuration:
 
 ```bash
 aws cloudformation describe-stacks \
-  --stack-name NovaHealthcareStack \
+  --stack-name NovaSonicHealthcareStack \
   --query 'Stacks[0].Outputs'
 ```
 
@@ -60,53 +63,57 @@ To extract specific values individually:
 ```bash
 # Get AgentCore Runtime ARN
 aws cloudformation describe-stacks \
-  --stack-name NovaHealthcareStack \
+  --stack-name NovaSonicHealthcareStack \
   --query 'Stacks[0].Outputs[?OutputKey==`AgentCoreRuntimeArn`].OutputValue' \
   --output text
 
 # Get Cognito User Pool ID
 aws cloudformation describe-stacks \
-  --stack-name NovaHealthcareStack \
+  --stack-name NovaSonicHealthcareStack \
   --query 'Stacks[0].Outputs[?OutputKey==`CognitoUserPoolId`].OutputValue' \
   --output text
 
 # Get Cognito Client ID
 aws cloudformation describe-stacks \
-  --stack-name NovaHealthcareStack \
+  --stack-name NovaSonicHealthcareStack \
   --query 'Stacks[0].Outputs[?OutputKey==`CognitoClientId`].OutputValue' \
   --output text
 
 # Get Cognito Identity Pool ID
 aws cloudformation describe-stacks \
-  --stack-name NovaHealthcareStack \
+  --stack-name NovaSonicHealthcareStack \
   --query 'Stacks[0].Outputs[?OutputKey==`CognitoIdentityPoolId`].OutputValue' \
   --output text
 ```
 
 ### Phase 3: Create Cognito Test User
 
-The CDK stack auto-creates a test user. If you need to create one manually:
+Create a test user manually:
 
 ```bash
 USER_POOL_ID=$(aws cloudformation describe-stacks \
-  --stack-name NovaHealthcareStack \
+  --stack-name NovaSonicHealthcareStack \
   --query 'Stacks[0].Outputs[?OutputKey==`CognitoUserPoolId`].OutputValue' \
   --output text)
 
 aws cognito-idp admin-create-user \
   --user-pool-id $USER_POOL_ID \
-  --username testuser \
-  --user-attributes Name=email,Value=testuser@example.com Name=email_verified,Value=true \
-  --temporary-password [YOUR_TEMPORARY_PASSWORD]
+  --username [YOUR_USERNAME] \
+  --user-attributes Name=email,Value=[YOUR_EMAIL] Name=email_verified,Value=true \
+  --temporary-password [YOUR_TEMPORARY_PASSWORD] \
+  --profile <your-aws-profile> \
+  --region <your-deployment-region>
 
 aws cognito-idp admin-set-user-password \
   --user-pool-id $USER_POOL_ID \
-  --username testuser \
+  --username [YOUR_USERNAME] \
   --password [YOUR_PASSWORD] \
-  --permanent
+  --permanent \
+  --profile <your-aws-profile> \
+  --region <your-deployment-region>
 ```
 
-**Test Credentials:** `testuser` / `[YOUR_PASSWORD]`
+**Test Credentials:** `[YOUR_USERNAME]` / `[YOUR_PASSWORD]`
 
 ### Phase 4: Configure and Run Frontend
 
@@ -119,7 +126,7 @@ cp .env.example .env
 Edit `.env` with values from CDK outputs:
 
 ```
-VITE_AWS_REGION=us-east-1
+VITE_AWS_REGION=<your-deployment-region>
 VITE_COGNITO_USER_POOL_ID=<CognitoUserPoolId>
 VITE_COGNITO_USER_POOL_CLIENT_ID=<CognitoClientId>
 VITE_COGNITO_IDENTITY_POOL_ID=<CognitoIdentityPoolId>
@@ -137,16 +144,13 @@ The data seeding script populates DynamoDB tables with sample patients, appointm
 The Lambda seeder runs automatically during deployment. If you need to refresh or re-seed data manually:
 
 ```bash
-cd backend
-python3 -m venv .venv
+cd infrastructure
 source .venv/bin/activate        # On Windows: .venv\Scripts\activate
-pip install -r requirements.txt
 
-# Use the same region as your CDK deployment
-python data_seed.py --region ${AWS_REGION:-us-east-1}
+python scripts/seed_data.py --profile <your-aws-profile> --region <your-deployment-region>
 ```
 
-**Note**: The data_seed script is region-agnostic. Replace `us-east-1` with your deployment region if different.
+The script reads table names from CloudFormation stack outputs automatically.
 
 ## Testing the Application
 
@@ -158,8 +162,8 @@ python data_seed.py --region ${AWS_REGION:-us-east-1}
 
 **Demo Patients** (from seed data):
 - John Smith (SSN last 4: 1234)
-- Maria Garcia (SSN last 4: 5678)
-- David Chen (SSN last 4: 9012)
+- Jane Doe (SSN last 4: 5678)
+- Michael Johnson (SSN last 4: 9012)
 
 ## Clean Up
 

@@ -22,6 +22,6 @@
       "aws",
       "aws-cn"
     ],
-    "escalation_email": "jimini@amazon.com"
+    "escalation_email": "YOUR_EMAIL@example.com"
   }
 }
