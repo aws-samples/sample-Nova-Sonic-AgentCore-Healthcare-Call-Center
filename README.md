@@ -22,10 +22,12 @@ Watch the system in action:
 <summary>Other Languages</summary>
 
 **Spanish Demo:**
-[Watch Spanish Demo](https://www.youtube.com/watch?v=q7IRMGWIkFE)
+[Watch Spanish Demo 1](https://www.youtube.com/watch?v=71ML0ZP1h_0)
+
+[Watch Spanish Demo 2](https://www.youtube.com/watch?v=3J8Co0yyEGY)
 
 **Hindi Demo:**
-[Watch Hindi Demo](https://www.youtube.com/watch?v=Cz0urbD3Vgg)
+[Watch Hindi Demo](https://www.youtube.com/watch?v=fz9Xp4bXiiw)
 
 </details>
 
