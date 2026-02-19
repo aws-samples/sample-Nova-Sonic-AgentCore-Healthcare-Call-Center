@@ -16,16 +16,16 @@ An AI-powered outbound call system for healthcare appointment management. Uses A
 
 Watch the system in action:
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/KsTOk5iizoo" frameborder="0" allowfullscreen></iframe>
+[English Demo](https://www.youtube.com/watch?v=KsTOk5iizoo)
 
 <details>
 <summary>Other Languages</summary>
 
 **Spanish Demo:**
-<iframe width="560" height="315" src="https://www.youtube.com/embed/q7IRMGWIkFE" frameborder="0" allowfullscreen></iframe>
+[Watch Spanish Demo](https://www.youtube.com/watch?v=q7IRMGWIkFE)
 
 **Hindi Demo:**
-<iframe width="560" height="315" src="https://www.youtube.com/embed/Cz0urbD3Vgg" frameborder="0" allowfullscreen></iframe>
+[Watch Hindi Demo](https://www.youtube.com/watch?v=Cz0urbD3Vgg)
 
 </details>
 
