@@ -12,26 +12,21 @@ An AI-powered outbound call system for healthcare appointment management. Uses A
 - **Multilingual support** — seamlessly switches to patient's preferred language
 - **Low-latency bidirectional communication** via WebSocket with SigV4 authentication
 
-[](docs/old.png)
-
 ## Demo
 
-<details>
-<summary>Authentication</summary>
+Watch the system in action:
 
-![Login](docs/screenshots/auth.png)
-</details>
+[![English Demo](https://img.youtube.com/vi/KsTOk5iizoo/maxresdefault.jpg)](https://youtu.be/KsTOk5iizoo)
 
 <details>
-<summary>Reschedule Appointment</summary>
+<summary>Other Languages</summary>
 
-![Reschedule](docs/screenshots/reschedule.png)
-</details>
+**Spanish Demo:**
+[![Spanish Demo](https://img.youtube.com/vi/q7IRMGWIkFE/maxresdefault.jpg)](https://youtu.be/q7IRMGWIkFE)
 
-<details>
-<summary>Health Information</summary>
+**Hindi Demo:**
+[![Hindi Demo](https://img.youtube.com/vi/Cz0urbD3Vgg/maxresdefault.jpg)](https://youtu.be/Cz0urbD3Vgg)
 
-![Health Info](docs/screenshots/healthinfo.png)
 </details>
 
 ## Prerequisites
