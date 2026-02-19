@@ -120,7 +120,7 @@ def seed_patients_table(dynamodb, table_name):
                 "Email": patient["Email"],
             }
         )
-        print(f"  Added patient: {patient_id}")
+        print("  Added patient record")
 
     print(f"Successfully seeded {len(PATIENTS)} patients")
     return patient_records
