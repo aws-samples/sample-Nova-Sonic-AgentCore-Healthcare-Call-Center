@@ -48,7 +48,7 @@ def record_health_update(appointment_id: str, health_update: str) -> dict:
     Returns:
         Dictionary with result of recording the update
     """
-    logger.info("Recording health update for appointment %s", appointment_id)
+    logger.info("Recording health update for appointment")
 
     db = get_db_client()
 
@@ -60,7 +60,7 @@ def record_health_update(appointment_id: str, health_update: str) -> dict:
             success=False,
             message="Appointment not found. Please verify the appointment ID.",
         )
-        logger.warning("Appointment not found: %s", appointment_id)
+        logger.warning("Appointment not found for health update")
         return asdict(result)
 
     # Append health update to appointment notes
@@ -79,5 +79,5 @@ def record_health_update(appointment_id: str, health_update: str) -> dict:
         message="Thank you. I've recorded your health update for your provider to review before your visit.",
     )
 
-    logger.info("Health update recorded for appointment %s", appointment_id)
+    logger.info("Health update recorded successfully")
     return asdict(result)

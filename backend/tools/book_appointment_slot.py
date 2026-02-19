@@ -49,7 +49,7 @@ def book_appointment_slot(appointment_id: str, slot_id: str) -> dict:
     Returns:
         Dictionary with booking result and new appointment details
     """
-    logger.info("Booking slot %s for appointment %s", slot_id, appointment_id)
+    logger.info("Booking slot for appointment")
 
     db = get_db_client()
 
@@ -62,7 +62,7 @@ def book_appointment_slot(appointment_id: str, slot_id: str) -> dict:
             message="Appointment not found. Please verify the appointment ID.",
             new_appointment_details=None,
         )
-        logger.warning("Appointment not found: %s", appointment_id)
+        logger.warning("Appointment not found for booking")
         return asdict(result)
 
     # Book the slot (this also updates the appointment)
@@ -94,5 +94,5 @@ def book_appointment_slot(appointment_id: str, slot_id: str) -> dict:
         new_appointment_details=new_appointment_details,
     )
 
-    logger.info("Appointment %s rescheduled to slot %s", appointment_id, slot_id)
+    logger.info("Appointment rescheduled successfully")
     return asdict(result)

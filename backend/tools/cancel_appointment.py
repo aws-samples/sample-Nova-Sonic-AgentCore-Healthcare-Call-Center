@@ -48,7 +48,7 @@ def cancel_appointment(appointment_id: str, reason: Optional[str] = None) -> dic
     Returns:
         Dictionary with cancellation result
     """
-    logger.info("Cancelling appointment: %s, reason: %s", appointment_id, reason)
+    logger.info("Cancelling appointment")
 
     db = get_db_client()
 
@@ -60,7 +60,7 @@ def cancel_appointment(appointment_id: str, reason: Optional[str] = None) -> dic
             success=False,
             message="Appointment not found. Please verify the appointment ID.",
         )
-        logger.warning("Appointment not found: %s", appointment_id)
+        logger.warning("Appointment not found for cancellation")
         return asdict(result)
 
     current_status = appointment.get("Status")
@@ -103,5 +103,5 @@ def cancel_appointment(appointment_id: str, reason: Optional[str] = None) -> dic
         message=f"Your appointment on {appointment_date} at {appointment_time} with {provider_name} has been cancelled.",
     )
 
-    logger.info("Appointment %s cancelled successfully", appointment_id)
+    logger.info("Appointment cancelled successfully")
     return asdict(result)

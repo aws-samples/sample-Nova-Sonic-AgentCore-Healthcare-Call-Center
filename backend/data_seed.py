@@ -134,7 +134,7 @@ def clear_table(table_name):
         items = scan.get("Items", [])
 
         if not items:
-            print(f"  Table {table_name} is already empty")
+            print("  Table is already empty")
             return True
 
         # Get key schema
@@ -146,16 +146,16 @@ def clear_table(table_name):
                 key = {k: item[k] for k in key_names}
                 batch.delete_item(Key=key)
 
-        print(f"  Cleared {len(items)} items from {table_name}")
+        print(f"  Cleared {len(items)} items")
         return True
     except Exception as e:
-        print(f"  Error clearing {table_name}: {e}")
+        print(f"  Error clearing table: {e}")
         return False
 
 
 def seed_patients_table():
     """Seed the Patients table with sample data."""
-    print(f"\nSeeding {PATIENTS_TABLE}...")
+    print("\nSeeding patients table...")
 
     try:
         table = dynamodb.Table(PATIENTS_TABLE)
@@ -184,9 +184,7 @@ def seed_patients_table():
                     "Email": patient["Email"],
                 }
             )
-            print(
-                f"  Added patient: {patient['FirstName']} {patient['LastName']} (ID: {patient_id})"
-            )
+            print(f"  Added patient: {patient_id}")
 
         print(f"  Successfully seeded {len(PATIENTS)} patients")
         return patient_ids
@@ -198,7 +196,7 @@ def seed_patients_table():
 
 def seed_appointments_table(patient_records):
     """Seed the Appointments table with sample data."""
-    print(f"\nSeeding {APPOINTMENTS_TABLE}...")
+    print("\nSeeding appointments table...")
 
     try:
         table = dynamodb.Table(APPOINTMENTS_TABLE)
@@ -240,9 +238,7 @@ def seed_appointments_table(patient_records):
                     "AppointmentType": appointment_type,
                     "Status": "Scheduled",
                 }
-                print(
-                    f"  Added SCHEDULED: {patient_name} with {provider['ProviderName']} on {appointment_date} at {appointment_time}"
-                )
+                print(f"  Added appointment: {appointment_id}")
 
                 table.put_item(Item=item)
                 appointment_count += 1
@@ -257,7 +253,7 @@ def seed_appointments_table(patient_records):
 
 def seed_available_slots_table():
     """Seed the AvailableSlots table with sample data."""
-    print(f"\nSeeding {AVAILABLE_SLOTS_TABLE}...")
+    print("\nSeeding available slots table...")
 
     try:
         table = dynamodb.Table(AVAILABLE_SLOTS_TABLE)
@@ -285,9 +281,7 @@ def seed_available_slots_table():
                     }
                 )
                 slot_count += 1
-                print(
-                    f"  Added slot: {provider['ProviderName']} on {slot_date} at {slot_time}"
-                )
+                print(f"  Added slot: {slot_id}")
 
         print(f"  Successfully seeded {slot_count} available slots")
         return True
@@ -306,9 +300,9 @@ def verify_tables_exist():
         try:
             table = dynamodb.Table(table_name)
             status = table.table_status
-            print(f"  {table_name}: {status}")
+            print(f"  Table verified: {status}")
         except Exception as e:
-            print(f"  {table_name}: NOT FOUND - {e}")
+            print(f"  Table NOT FOUND: {e}")
             tables_ok = False
 
     return tables_ok
@@ -333,10 +327,7 @@ def main():
     print("Nova Sonic Healthcare - Data Seeding")
     print("=" * 60)
     print(f"Region: {region}")
-    print("Tables:")
-    print(f"  - Patients: {PATIENTS_TABLE}")
-    print(f"  - Appointments: {APPOINTMENTS_TABLE}")
-    print(f"  - AvailableSlots: {AVAILABLE_SLOTS_TABLE}")
+    print("Tables: Patients, Appointments, AvailableSlots")
 
     # Verify tables exist
     if not verify_tables_exist():

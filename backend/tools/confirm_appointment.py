@@ -47,7 +47,7 @@ def confirm_appointment(appointment_id: str) -> dict:
     Returns:
         Dictionary with confirmation result and updated appointment details
     """
-    logger.info("Confirming appointment: %s", appointment_id)
+    logger.info("Confirming appointment")
 
     db = get_db_client()
 
@@ -60,7 +60,7 @@ def confirm_appointment(appointment_id: str) -> dict:
             message="Appointment not found. Please verify the appointment ID.",
             appointment_details=None,
         )
-        logger.warning("Appointment not found: %s", appointment_id)
+        logger.warning("Appointment not found for confirmation")
         return asdict(result)
 
     current_status = appointment.get("Status")
@@ -113,5 +113,5 @@ def confirm_appointment(appointment_id: str) -> dict:
         appointment_details=appointment_details,
     )
 
-    logger.info("Appointment %s confirmed successfully", appointment_id)
+    logger.info("Appointment confirmed successfully")
     return asdict(result)

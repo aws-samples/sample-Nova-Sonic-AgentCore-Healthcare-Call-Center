@@ -61,11 +61,7 @@ def find_available_slots(appointment_id: str, preferred_date: str) -> dict:
     Returns:
         Dictionary with list of available time slots for the date
     """
-    logger.info(
-        "Finding available slots for appointment %s on %s",
-        appointment_id,
-        preferred_date,
-    )
+    logger.info("Finding available slots for appointment")
 
     db = get_db_client()
 
@@ -78,7 +74,7 @@ def find_available_slots(appointment_id: str, preferred_date: str) -> dict:
             message="Appointment not found. Please verify the appointment ID.",
             slots=None,
         )
-        logger.warning("Appointment not found: %s", appointment_id)
+        logger.warning("Appointment not found for slot search")
         return asdict(result)
 
     provider_id = appointment.get("ProviderId")
@@ -128,5 +124,5 @@ def find_available_slots(appointment_id: str, preferred_date: str) -> dict:
         slots=formatted_slots,
     )
 
-    logger.info("Found %d available slots for %s", len(formatted_slots), preferred_date)
+    logger.info("Found %d available slots", len(formatted_slots))
     return asdict(result)

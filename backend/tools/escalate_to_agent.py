@@ -72,11 +72,7 @@ def escalate_to_agent(appointment_id: str, reason: str) -> dict:
     Returns:
         Dictionary with escalation result and voice-friendly reference number
     """
-    logger.info(
-        "Flagging call for follow-up, appointment %s, reason: %s",
-        appointment_id,
-        reason,
-    )
+    logger.info("Flagging call for follow-up")
 
     db = get_db_client()
     sns = get_sns_client()

@@ -58,7 +58,7 @@ class DynamoDBClient:
             normalized_first = self._normalize_name(first_name)
             normalized_last = self._normalize_name(last_name)
 
-            logger.info("Looking up patient: %s %s", normalized_first, normalized_last)
+            logger.info("Looking up patient by name")
 
             # Query using the GSI for FirstName + LastName, then filter by SSN
             response = self.patients_table.query(
@@ -79,11 +79,11 @@ class DynamoDBClient:
 
             items = response.get("Items", [])
             if not items:
-                logger.warning("No patient found for %s %s", first_name, last_name)
+                logger.warning("No patient found matching provided credentials")
                 return None
 
             patient = items[0]
-            logger.info("Found patient: %s", patient.get("PatientId"))
+            logger.info("Patient found successfully")
             return patient
 
         except ClientError as e:
@@ -106,14 +106,14 @@ class DynamoDBClient:
             appointment = response.get("Item")
 
             if appointment:
-                logger.info("Retrieved appointment %s", appointment_id)
+                logger.info("Appointment retrieved successfully")
             else:
-                logger.warning("Appointment not found: %s", appointment_id)
+                logger.warning("Appointment not found")
 
             return appointment
 
         except ClientError as e:
-            logger.error("Error retrieving appointment %s: %s", appointment_id, e)
+            logger.error("Error retrieving appointment: %s", e)
             return None
 
     def get_patient_appointments(self, patient_id: str) -> List[Dict[str, Any]]:
@@ -134,17 +134,11 @@ class DynamoDBClient:
             )
 
             appointments = response.get("Items", [])
-            logger.info(
-                "Retrieved %d appointments for patient %s",
-                len(appointments),
-                patient_id,
-            )
+            logger.info("Retrieved %d appointments for patient", len(appointments))
             return appointments
 
         except ClientError as e:
-            logger.error(
-                "Error retrieving appointments for patient %s: %s", patient_id, e
-            )
+            logger.error("Error retrieving appointments for patient: %s", e)
             return []
 
     def update_appointment_status(
@@ -181,11 +175,11 @@ class DynamoDBClient:
                 ExpressionAttributeValues=expr_values,
             )
 
-            logger.info("Updated appointment %s to status %s", appointment_id, status)
+            logger.info("Updated appointment status to %s", status)
             return True
 
         except ClientError as e:
-            logger.error("Error updating appointment %s: %s", appointment_id, e)
+            logger.error("Error updating appointment status: %s", e)
             return False
 
     def update_appointment_notes(self, appointment_id: str, notes: str) -> bool:
@@ -208,11 +202,11 @@ class DynamoDBClient:
                 },
             )
 
-            logger.info("Added notes to appointment %s", appointment_id)
+            logger.info("Added notes to appointment")
             return True
 
         except ClientError as e:
-            logger.error("Error adding notes to appointment %s: %s", appointment_id, e)
+            logger.error("Error adding notes to appointment: %s", e)
             return False
 
     def query_available_slots(self, provider_id: str, date: str) -> Dict[str, Any]:
@@ -246,12 +240,7 @@ class DynamoDBClient:
             # Limit to 3 slots for voice conversation
             limited_slots = slots[:3]
 
-            logger.info(
-                "Found %d available slots for provider %s on %s",
-                len(limited_slots),
-                provider_id,
-                date,
-            )
+            logger.info("Found %d available slots for requested date", len(limited_slots))
 
             return {
                 "success": True,
@@ -316,7 +305,7 @@ class DynamoDBClient:
                 },
             )
 
-            logger.info("Booked slot %s for appointment %s", slot_id, appointment_id)
+            logger.info("Slot booked successfully for appointment")
 
             return {
                 "success": True,
@@ -328,7 +317,7 @@ class DynamoDBClient:
             }
 
         except ClientError as e:
-            logger.error("Error booking slot %s: %s", slot_id, e)
+            logger.error("Error booking slot: %s", e)
             return {"success": False, "message": f"Error booking slot: {str(e)}"}
 
     def _normalize_name(self, name: str) -> str:

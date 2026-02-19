@@ -57,17 +57,13 @@ def authenticate_patient(first_name: str, last_name: str, ssn_last_four: str) ->
     Returns:
         Dictionary with authentication result including patient and appointment details
     """
-    logger.info("Authenticating patient: %s %s", first_name, last_name)
+    logger.info("Authenticating patient")
 
     # Rate limiting: track failed attempts per name combination
     attempt_key = f"{first_name.strip().lower()}:{last_name.strip().lower()}"
 
     if _failed_attempts.get(attempt_key, 0) >= MAX_ATTEMPTS:
-        logger.warning(
-            "Authentication locked out for %s %s (max attempts reached)",
-            first_name,
-            last_name,
-        )
+        logger.warning("Authentication locked out (max attempts reached)")
         result = AuthenticationResult(
             success=False,
             patient_id=None,
@@ -87,9 +83,7 @@ def authenticate_patient(first_name: str, last_name: str, ssn_last_four: str) ->
         _failed_attempts[attempt_key] = _failed_attempts.get(attempt_key, 0) + 1
         remaining = MAX_ATTEMPTS - _failed_attempts[attempt_key]
         logger.warning(
-            "Authentication failed for %s %s (attempt %d/%d)",
-            first_name,
-            last_name,
+            "Authentication failed (attempt %d/%d)",
             _failed_attempts[attempt_key],
             MAX_ATTEMPTS,
         )
@@ -150,5 +144,5 @@ def authenticate_patient(first_name: str, last_name: str, ssn_last_four: str) ->
         message=f"Welcome {patient_name}! I found your appointment on {appointment_details['date']} at {appointment_details['time']} with {appointment_details['provider']}.",
     )
 
-    logger.info("Authentication successful for patient %s", patient_id)
+    logger.info("Authentication successful")
     return asdict(result)

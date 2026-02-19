@@ -98,7 +98,7 @@ def get_table_names(cfn_client, stack_name):
 
 def seed_patients_table(dynamodb, table_name):
     """Seed the Patients table with sample data."""
-    print(f"Seeding {table_name}...")
+    print("Seeding patients table...")
     table = dynamodb.Table(table_name)
     patient_records = []
 
@@ -120,7 +120,7 @@ def seed_patients_table(dynamodb, table_name):
                 "Email": patient["Email"],
             }
         )
-        print(f"  Added patient: {patient['FirstName']} {patient['LastName']}")
+        print(f"  Added patient: {patient_id}")
 
     print(f"Successfully seeded {len(PATIENTS)} patients")
     return patient_records
@@ -128,7 +128,7 @@ def seed_patients_table(dynamodb, table_name):
 
 def seed_appointments_table(dynamodb, table_name, patient_records):
     """Seed the Appointments table with sample data."""
-    print(f"Seeding {table_name}...")
+    print("Seeding appointments table...")
     table = dynamodb.Table(table_name)
     appointment_count = 0
 
@@ -174,7 +174,7 @@ def seed_appointments_table(dynamodb, table_name, patient_records):
 
 def seed_available_slots_table(dynamodb, table_name):
     """Seed the AvailableSlots table with sample data."""
-    print(f"Seeding {table_name}...")
+    print("Seeding available slots table...")
     table = dynamodb.Table(table_name)
     slot_count = 0
 
@@ -214,10 +214,7 @@ def main():
     print(f"Getting table names from stack: {args.stack_name}")
     table_names = get_table_names(cfn_client, args.stack_name)
 
-    print(f"Found tables:")
-    print(f"  Patients: {table_names['patients']}")
-    print(f"  Appointments: {table_names['appointments']}")
-    print(f"  Slots: {table_names['slots']}")
+    print(f"Found {len(table_names)} tables from stack outputs")
     print()
 
     # Seed the tables
