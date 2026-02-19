@@ -9,7 +9,7 @@ This guide covers deployment of the Nova Sonic Healthcare Call Center using Amaz
 - **AWS CDK** installed (`npm install -g aws-cdk`)
 - **Node.js** 20+
 - **Python** 3.12+ (3.13 recommended)
-- **pip** — Python package manager (included with Python)
+- **pip** — Python package manager (included with Python). [`uv`](https://docs.astral.sh/uv/) works as a drop-in alternative (e.g., `uv pip install -r requirements.txt`)
 - **Docker** running (for AgentCore container build)
 
 

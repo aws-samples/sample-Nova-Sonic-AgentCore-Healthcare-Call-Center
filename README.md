@@ -68,14 +68,14 @@ Watch the system in action:
 ## Project Structure
 
 ```
-nova-sonic-hcls-call-center/
+sample-Nova-Sonic-AgentCore-Healthcare-Call-Center/
 ├── backend/                    # BidiAgent application code
 │   ├── agent.py               # Main BidiAgent entry point
 │   ├── Dockerfile             # Container for AgentCore
 │   ├── clients/               # AWS service clients
 │   ├── tools/                 # Healthcare tools
 │   ├── prompts/               # System prompts
-│   └── pyproject.toml         # Python dependencies
+│   └── requirements.txt       # Python dependencies
 ├── frontend/                   # React application
 │   ├── src/
 │   │   ├── components/        # UI components
