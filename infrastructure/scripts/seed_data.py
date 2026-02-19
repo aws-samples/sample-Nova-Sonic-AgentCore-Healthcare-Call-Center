@@ -7,7 +7,7 @@ Usage:
     python scripts/seed_data.py --profile <aws-profile> --region <region>
 
 Example:
-    python scripts/seed_data.py --profile aws-amer-pace+acqueon-nova-sonic-hcls-call-center-Admin --region us-east-1
+    python scripts/seed_data.py --profile <your-aws-profile> --region <your-deployment-region>
 """
 
 import argparse
