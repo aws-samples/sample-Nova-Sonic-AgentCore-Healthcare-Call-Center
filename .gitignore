@@ -1,0 +1,37 @@
+!jest.config.js
+# *.d.ts
+node_modules
+
+# CDK asset staging directory
+.cdk.staging
+*cdk.out
+
+.env
+.DS_Store
+
+# AI assistant files
+CLAUDE.md
+.aidlc-rule-details
+aidlc-docs/
+.claude/
+.mcp.json
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+.venv/
+venv/
+.python-version
+*.egg-info/
+.eggs/
+
+# Development notes and research
+.internal
+
+# Test files (local development)
+test_*.py
+.playwright-mcp
+.ruff_cache

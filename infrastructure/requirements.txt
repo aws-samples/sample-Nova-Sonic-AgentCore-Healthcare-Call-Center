@@ -1,0 +1,23 @@
+# Pinned dependencies (2026-02-16)
+attrs==25.4.0
+aws-cdk-asset-awscli-v1==2.2.263
+aws-cdk-asset-node-proxy-agent-v6==2.1.0
+aws-cdk-aws-bedrock-agentcore-alpha==2.238.0a0
+aws-cdk-aws-bedrock-alpha==2.238.0a0
+aws-cdk-cloud-assembly-schema==48.20.0
+aws-cdk-lib==2.238.0
+boto3==1.42.48
+botocore==1.42.48
+cattrs==25.3.0
+cdk-nag==2.37.55
+constructs==10.4.5
+importlib-resources==6.5.2
+jmespath==1.1.0
+jsii==1.126.0
+publication==0.0.3
+python-dateutil==2.9.0.post0
+s3transfer==0.16.0
+six==1.17.0
+typeguard==2.13.3
+typing-extensions==4.15.0
+urllib3==2.6.3

@@ -1,0 +1,196 @@
+@import "@aws-amplify/ui-react/styles.css";
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 228 25% 8%;
+    --foreground: 40 8% 90%;
+
+    --card: 228 22% 12%;
+    --card-foreground: 40 8% 90%;
+
+    --popover: 228 22% 12%;
+    --popover-foreground: 40 8% 90%;
+
+    --primary: 172 66% 50%;
+    --primary-foreground: 228 25% 8%;
+
+    --secondary: 228 18% 16%;
+    --secondary-foreground: 40 8% 90%;
+
+    --muted: 228 18% 16%;
+    --muted-foreground: 230 5% 56%;
+
+    --accent: 228 18% 16%;
+    --accent-foreground: 40 8% 90%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 40 8% 90%;
+
+    --border: 228 18% 18%;
+    --input: 228 18% 18%;
+    --ring: 172 66% 50%;
+
+    --radius: 0.75rem;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  html {
+    font-family: "Inter", system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    @apply bg-surface text-text-primary;
+  }
+}
+
+/* Glassmorphism card utility */
+@layer components {
+  .glass-card {
+    @apply rounded-xl border border-white/5 bg-surface-elevated;
+    backdrop-filter: blur(12px);
+  }
+
+  .glow-ring {
+    box-shadow: 0 0 20px rgba(45, 212, 191, 0.15),
+                0 0 40px rgba(45, 212, 191, 0.05);
+  }
+
+  .glow-ring-active {
+    box-shadow: 0 0 30px rgba(45, 212, 191, 0.3),
+                0 0 60px rgba(45, 212, 191, 0.1);
+  }
+}
+
+/* Amplify Authenticator — dark theme */
+[data-amplify-authenticator] {
+  --amplify-colors-background-primary: #0f1119;
+  --amplify-colors-background-secondary: #181b27;
+  --amplify-colors-border-primary: rgba(255, 255, 255, 0.08);
+  --amplify-colors-border-secondary: rgba(255, 255, 255, 0.05);
+  --amplify-colors-font-primary: #e8e6e1;
+  --amplify-colors-font-secondary: #8b8d97;
+  --amplify-colors-font-interactive: #2dd4bf;
+  --amplify-colors-brand-primary-10: rgba(45, 212, 191, 0.1);
+  --amplify-colors-brand-primary-80: #2dd4bf;
+  --amplify-colors-brand-primary-90: #26b8a6;
+  --amplify-colors-brand-primary-100: #1f9e8e;
+
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: radial-gradient(ellipse at 50% 40%, #1e223580 0%, #0f1119 70%);
+
+  [data-amplify-router] {
+    @apply rounded-2xl border border-white/5;
+    background: #181b27;
+    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.5),
+                0 0 80px rgba(45, 212, 191, 0.04);
+  }
+
+  [data-amplify-form] {
+    padding: 2rem;
+
+    .amplify-button--primary {
+      @apply rounded-lg px-5 py-2.5 text-sm font-semibold transition-all;
+      background: #2dd4bf;
+      color: #0f1119;
+
+      &:hover {
+        background: #26b8a6;
+      }
+
+      &:focus {
+        outline: none;
+        box-shadow: 0 0 0 3px rgba(45, 212, 191, 0.3);
+      }
+
+      &:disabled {
+        background: #1e2235;
+        color: #8b8d97;
+      }
+    }
+
+    .amplify-input,
+    .amplify-field__show-password {
+      background: #0f1119;
+      border-color: rgba(255, 255, 255, 0.08);
+      color: #e8e6e1;
+
+      &:focus {
+        border-color: #2dd4bf;
+        box-shadow: 0 0 0 2px rgba(45, 212, 191, 0.15);
+      }
+    }
+
+    .amplify-label {
+      color: #8b8d97;
+    }
+  }
+
+  [data-amplify-footer] {
+    .amplify-button--link {
+      color: #2dd4bf;
+
+      &:hover {
+        color: #26b8a6;
+      }
+    }
+  }
+
+  .amplify-heading {
+    color: #e8e6e1;
+  }
+
+  .amplify-tabs__item {
+    color: #8b8d97;
+    border-color: transparent;
+
+    &--active {
+      color: #2dd4bf;
+      border-color: #2dd4bf;
+    }
+  }
+
+  /* Catch-all: force all text inside authenticator to light color */
+  .amplify-text,
+  .amplify-text--primary,
+  .amplify-text--secondary,
+  p,
+  span,
+  div {
+    color: #e8e6e1;
+  }
+
+  .amplify-text--secondary {
+    color: #8b8d97;
+  }
+
+  /* Error/alert messages */
+  .amplify-alert {
+    background: rgba(239, 68, 68, 0.1);
+    border: 1px solid rgba(239, 68, 68, 0.3);
+    color: #fca5a5;
+    border-radius: 0.5rem;
+  }
+
+  .amplify-alert__body,
+  .amplify-alert__heading {
+    color: #fca5a5;
+  }
+
+  .amplify-alert__dismiss {
+    color: #fca5a5;
+  }
+}

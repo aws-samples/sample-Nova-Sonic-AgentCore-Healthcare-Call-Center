@@ -1,0 +1,23 @@
+*.swp
+package-lock.json
+__pycache__
+.pytest_cache
+.venv
+source.bat
+*.egg-info
+
+# CDK asset staging directory
+.cdk.staging
+cdk.out
+
+### macOS ###
+# General
+.DS_Store
+.AppleDouble
+.LSOverride
+
+cdk.context.json
+
+# local testing files
+app/aws-setting.sh
+# app/docker-test.sh
