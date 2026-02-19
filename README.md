@@ -1,10 +1,10 @@
 # Nova Sonic Healthcare Call Center
 
-An AI-powered outbound call system for healthcare appointment management. Uses Amazon Nova Sonic 2 speech-to-speech model with AWS Bedrock AgentCore for natural, conversational patient interactions.
+An AI-powered outbound call system for healthcare appointment management. Uses Amazon Nova 2 Sonic speech-to-speech model with AWS Bedrock AgentCore for natural, conversational patient interactions.
 
 ## Features
 
-- **Natural speech-to-speech interactions** using Amazon Nova Sonic 2
+- **Natural speech-to-speech interactions** using Amazon Nova 2 Sonic
 - **Secure patient authentication** using patient name and last 4 digits of SSN
 - **Appointment management** — confirm, cancel, or reschedule with context awareness
 - **Health information gathering** for upcoming appointments
@@ -16,23 +16,23 @@ An AI-powered outbound call system for healthcare appointment management. Uses A
 
 Watch the system in action:
 
-[![English Demo](https://img.youtube.com/vi/KsTOk5iizoo/maxresdefault.jpg)](https://youtu.be/KsTOk5iizoo)
+<iframe width="560" height="315" src="https://www.youtube.com/embed/KsTOk5iizoo" frameborder="0" allowfullscreen></iframe>
 
 <details>
 <summary>Other Languages</summary>
 
 **Spanish Demo:**
-[![Spanish Demo](https://img.youtube.com/vi/q7IRMGWIkFE/maxresdefault.jpg)](https://youtu.be/q7IRMGWIkFE)
+<iframe width="560" height="315" src="https://www.youtube.com/embed/q7IRMGWIkFE" frameborder="0" allowfullscreen></iframe>
 
 **Hindi Demo:**
-[![Hindi Demo](https://img.youtube.com/vi/Cz0urbD3Vgg/maxresdefault.jpg)](https://youtu.be/Cz0urbD3Vgg)
+<iframe width="560" height="315" src="https://www.youtube.com/embed/Cz0urbD3Vgg" frameborder="0" allowfullscreen></iframe>
 
 </details>
 
 ## Prerequisites
 
 - **AWS Account** with appropriate permissions
-- **Amazon Bedrock Model Access** — Nova Sonic 2
+- **Amazon Bedrock Model Access** — Nova 2 Sonic
 - **AWS CLI** configured
 - **AWS CDK** installed
 - **Node.js** 20+ and npm for frontend
@@ -94,8 +94,8 @@ See the [Deployment Guide](docs/DEPLOYMENT.md) for step-by-step setup instructio
 
 ## Disclaimer
 
-- This is a reference implementation demonstrating Amazon Bedrock AgentCore with Amazon Nova Sonic 2.
-- The frontend UI is for demonstration purposes only.
+- This is a reference implementation for demonstration purposes only.
+- Both the frontend and backend are sample implementations not intended for production use without modification.
 - Before deploying to production, conduct a thorough security review and HIPAA compliance assessment tailored to your organization's requirements.
 
 ## License

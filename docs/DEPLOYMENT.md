@@ -33,7 +33,7 @@ cdk deploy --require-approval never
 ```
 
 This deploys:
-- **AgentCore Runtime** — containerized BidiAgent with Nova Sonic 2
+- **AgentCore Runtime** — containerized BidiAgent with Nova 2 Sonic
 - **Cognito User Pool & Identity Pool** — user authentication
 - **DynamoDB Tables** — Patients, Appointments, AvailableSlots
 - **SNS Topic** — escalation notifications
@@ -51,9 +51,37 @@ aws cloudformation describe-stacks \
 
 Key outputs:
 - `CognitoUserPoolId`
-- `CognitoUserPoolClientId`
+- `CognitoClientId`
 - `CognitoIdentityPoolId`
 - `AgentCoreRuntimeArn`
+
+To extract specific values individually:
+
+```bash
+# Get AgentCore Runtime ARN
+aws cloudformation describe-stacks \
+  --stack-name NovaHealthcareStack \
+  --query 'Stacks[0].Outputs[?OutputKey==`AgentCoreRuntimeArn`].OutputValue' \
+  --output text
+
+# Get Cognito User Pool ID
+aws cloudformation describe-stacks \
+  --stack-name NovaHealthcareStack \
+  --query 'Stacks[0].Outputs[?OutputKey==`CognitoUserPoolId`].OutputValue' \
+  --output text
+
+# Get Cognito Client ID
+aws cloudformation describe-stacks \
+  --stack-name NovaHealthcareStack \
+  --query 'Stacks[0].Outputs[?OutputKey==`CognitoClientId`].OutputValue' \
+  --output text
+
+# Get Cognito Identity Pool ID
+aws cloudformation describe-stacks \
+  --stack-name NovaHealthcareStack \
+  --query 'Stacks[0].Outputs[?OutputKey==`CognitoIdentityPoolId`].OutputValue' \
+  --output text
+```
 
 ### Phase 3: Create Cognito Test User
 
@@ -69,16 +97,16 @@ aws cognito-idp admin-create-user \
   --user-pool-id $USER_POOL_ID \
   --username testuser \
   --user-attributes Name=email,Value=testuser@example.com Name=email_verified,Value=true \
-  --temporary-password TempPass123!
+  --temporary-password [YOUR_TEMPORARY_PASSWORD]
 
 aws cognito-idp admin-set-user-password \
   --user-pool-id $USER_POOL_ID \
   --username testuser \
-  --password TestUser123! \
+  --password [YOUR_PASSWORD] \
   --permanent
 ```
 
-**Test Credentials:** `testuser` / `TestUser123!`
+**Test Credentials:** `testuser` / `[YOUR_PASSWORD]`
 
 ### Phase 4: Configure and Run Frontend
 
@@ -93,7 +121,7 @@ Edit `.env` with values from CDK outputs:
 ```
 VITE_AWS_REGION=us-east-1
 VITE_COGNITO_USER_POOL_ID=<CognitoUserPoolId>
-VITE_COGNITO_USER_POOL_CLIENT_ID=<CognitoUserPoolClientId>
+VITE_COGNITO_USER_POOL_CLIENT_ID=<CognitoClientId>
 VITE_COGNITO_IDENTITY_POOL_ID=<CognitoIdentityPoolId>
 VITE_AGENTCORE_RUNTIME_ARN=<AgentCoreRuntimeArn>
 ```
@@ -104,15 +132,21 @@ npm run dev
 
 ### Phase 5: Seed Demo Data (Optional)
 
-If the Lambda seeder didn't run or you want to refresh data:
+The data seeding script populates DynamoDB tables with sample patients, appointments, and available time slots for testing. This creates 6 demo patients (John Smith, Jane Doe, etc.) with scheduled appointments and provider availability.
+
+The Lambda seeder runs automatically during deployment. If you need to refresh or re-seed data manually:
 
 ```bash
 cd backend
 python3 -m venv .venv
 source .venv/bin/activate        # On Windows: .venv\Scripts\activate
 pip install -r requirements.txt
-python data_seed.py --region us-east-1
+
+# Use the same region as your CDK deployment
+python data_seed.py --region ${AWS_REGION:-us-east-1}
 ```
+
+**Note**: The data_seed script is region-agnostic. Replace `us-east-1` with your deployment region if different.
 
 ## Testing the Application
 
@@ -146,5 +180,5 @@ aws logs describe-log-groups \
 ## Troubleshooting
 
 - **WebSocket connection fails** — verify Identity Pool config, check that the authenticated IAM role has `bedrock-agentcore:InvokeAgentRuntimeWithWebSocketStream`, and confirm AgentCore runtime is `ACTIVE`
-- **No audio response** — ensure microphone access is granted in the browser and Nova Sonic 2 is enabled in Bedrock console
+- **No audio response** — ensure microphone access is granted in the browser and Nova 2 Sonic is enabled in Bedrock console
 - **Authentication errors** — verify User Pool ID and Client ID match `.env` values, and confirm the user has a permanent password set

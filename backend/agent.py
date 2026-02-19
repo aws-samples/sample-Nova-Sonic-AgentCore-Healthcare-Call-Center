@@ -1,6 +1,6 @@
 """BidiAgent Entry Point for Nova Sonic Healthcare Call Center.
 
-This module creates and configures the BidiAgent with Nova Sonic 2 model
+This module creates and configures the BidiAgent with Nova 2 Sonic model
 for bidirectional voice conversations. Designed for AgentCore Runtime deployment.
 
 AgentCore Runtime requires:
@@ -121,7 +121,7 @@ async def root():
 async def websocket_endpoint(websocket: WebSocket):
     """WebSocket endpoint for BidiAgent voice streaming.
 
-    This handles bidirectional audio streaming with Nova Sonic 2.
+    This handles bidirectional audio streaming with Nova 2 Sonic.
     AgentCore Runtime connects to this endpoint for voice conversations.
 
     Following the official Strands samples websocket_example.py pattern:
@@ -155,7 +155,7 @@ async def websocket_endpoint(websocket: WebSocket):
         tools = get_tools_list()
         logger.info("Loaded %d tools", len(tools))
 
-        # Create the Nova Sonic 2 model with correct configuration
+        # Create the Nova 2 Sonic model with correct configuration
         # Using amazon.nova-2-sonic-v1:0 per official Strands samples
         model = BidiNovaSonicModel(
             region=region,

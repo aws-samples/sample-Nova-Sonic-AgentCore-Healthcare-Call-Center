@@ -75,7 +75,7 @@ class AgentCoreConstruct(Construct):
             },
         )
 
-        # Grant Bedrock model invocation (Nova Sonic 2)
+        # Grant Bedrock model invocation (Nova 2 Sonic)
         self._runtime.role.add_to_policy(
             iam.PolicyStatement(
                 sid="InvokeNovaSonic2",
