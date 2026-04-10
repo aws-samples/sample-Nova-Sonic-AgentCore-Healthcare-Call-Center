@@ -10,7 +10,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@aws-amplify/ui-react": "^6.1.14",
+    "@aws-amplify/ui-react": "^6.15.3",
     "@aws-sdk/client-cognito-identity": "^3.777.0",
     "@aws-sdk/client-dynamodb": "^3.989.0",
     "@aws-sdk/client-s3": "^3.508.0",
