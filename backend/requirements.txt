@@ -42,7 +42,7 @@ pyjwt==2.11.0
 python-dateutil==2.9.0.post0
 python-dotenv==1.2.1
 python-json-logger==4.0.0
-python-multipart==0.0.22
+python-multipart==0.0.26
 pyyaml==6.0.3
 referencing==0.37.0
 rpds-py==0.30.0
