@@ -67,7 +67,7 @@ class AgentCoreConstruct(Construct):
             # Bump IMAGE_VERSION to force CloudFormation to update the runtime
             # when CDK asset hash doesn't detect code changes
             environment_variables={
-                "IMAGE_VERSION": "2026-02-17-v1",
+                "IMAGE_VERSION": "2026-04-29-v2",
                 "PATIENTS_TABLE": dynamodb_table_names.get("patients", "nova-healthcare-patients"),
                 "APPOINTMENTS_TABLE": dynamodb_table_names.get("appointments", "nova-healthcare-appointments"),
                 "AVAILABLE_SLOTS_TABLE": dynamodb_table_names.get("slots", "nova-healthcare-slots"),
