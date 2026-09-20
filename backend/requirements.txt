@@ -1,7 +1,7 @@
 # Pinned dependencies (2026-02-16)
 annotated-doc==0.0.4
 annotated-types==0.7.0
-anyio==4.12.1
+anyio==4.14.2
 attrs==25.4.0
 aws-sdk-bedrock-runtime==0.3.0
 aws-sdk-signers==0.1.0
