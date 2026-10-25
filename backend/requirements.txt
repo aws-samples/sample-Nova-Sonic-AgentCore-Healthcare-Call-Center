@@ -8,7 +8,7 @@ aws-sdk-signers==0.1.0
 awscrt==0.28.4
 boto3==1.42.48
 botocore==1.42.48
-certifi==2026.1.4
+certifi==2026.10.19
 cffi==2.0.0
 click==8.3.1
 cryptography==46.0.5
