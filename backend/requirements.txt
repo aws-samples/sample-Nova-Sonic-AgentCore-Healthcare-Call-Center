@@ -55,7 +55,7 @@ smithy-http==0.3.1
 smithy-json==0.2.1
 sse-starlette==3.2.0
 starlette==0.52.1
-strands-agents==1.26.0
+strands-agents==1.48.0
 typing-extensions==4.15.0
 typing-inspection==0.4.2
 urllib3==2.6.3
